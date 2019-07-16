@@ -1,6 +1,6 @@
-Welcome to Skeleton. 
+Welcome to Blocipedia. 
 
-This is a skeleton of a full stack node app. 
+This is a clone of the popular site, Wikipedia.
 
 It's written using JavaScript, Node.js, Express.js, Passport.js, PostgreSQL, and Sequelize.
 

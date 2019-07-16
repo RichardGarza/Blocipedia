@@ -1,7 +1,7 @@
 {
-  "name": "Skeleton",
+  "name": "Blocipedia",
   "version": "1.0.0",
-  "description": "A skeleton to build a full stack Node.js app",
+  "description": "A Wikipedia Clone where users can create Wikis.",
   "main": "src/server.js",
   "scripts": {
     "test": "clear && set NODE_ENV=test&& jasmine",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RichardGarza/Skeleton"
+    "url": "git+https://github.com/RichardGarza/Blocipedia"
   },
   "author": "Richard Garza",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RichardGarza/Skeleton/issues"
+    "url": "https://github.com/RichardGarza/Blocipedia/issues"
   },
-  "homepage": "https://github.com/RichardGarza/Skeleton#readme",
+  "homepage": "https://github.com/RichardGarza/Blocipedia#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
