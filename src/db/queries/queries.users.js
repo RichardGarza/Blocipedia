@@ -1,5 +1,8 @@
 const bcrypt = require("bcryptjs");
 const User = require('../models').User;
+const salt = bcrypt.genSaltSync();
+const passport = require("passport");
+
 
 module.exports = {
  
@@ -11,7 +14,6 @@ module.exports = {
 
     } else {
 
-      const salt = bcrypt.genSaltSync();
       const hashedPassword = bcrypt.hashSync(newUser.password, salt);
 
       return User.create({
@@ -39,4 +41,25 @@ module.exports = {
       });
     }
   }, // End createUser()
+
+
+  signIn(req, res, next){
+
+    passport.authenticate("local")(req, res, () => {
+      
+      if(!req.user){
+        req.flash("notice", "Sign in failed. Please try again.");
+        res.redirect("/users/sign_in");
+      } else {
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      }
+    });
+  }, // End signIn()
+  
+  signOut(req, res, next){
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
+  }, // End signOut()
 }

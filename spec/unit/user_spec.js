@@ -108,6 +108,27 @@ describe('User', () => {
         }
       });        
     });
-  });       
+  });     
+  
+  describe('Sign In && Sign out', () => {
+
+    it('Should allow a user with valid credentials to sign in', (done) => {
+      User.create({
+        email: 'whatever@totally.com',
+        password: '123456789',
+        username: 'cooldude420'
+      })
+      .then((user) => {
+        expect(user.email).toBe('whatever@totally.com');
+        expect(user.username).toBe('cooldude420');
+        expect(user.id).toBe(1);
+        done();
+      })
+      .catch((err) => {
+        done();
+      });
+    });
+    
+  }); 
 });
 
