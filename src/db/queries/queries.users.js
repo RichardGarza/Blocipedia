@@ -23,16 +23,16 @@ module.exports = {
       })
       .then((user) => {
 
-        const sgMail = require('@sendgrid/mail');
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-        const msg = {
-          to: user.email,
-          from: 'fakeAdminEmail@blocipedia.com',
-          subject: `${user.username}, you're signed up!`,
-          text: "You've successfully signed up to Blocipedia.",
-          html: '<strong> Welcome! </strong>',
-        };
-        sgMail.send(msg);
+        // const sgMail = require('@sendgrid/mail');
+        // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        // const msg = {
+        //   to: user.email,
+        //   from: 'fakeAdminEmail@blocipedia.com',
+        //   subject: `${user.username}, you're signed up!`,
+        //   text: "You've successfully signed up to Blocipedia.",
+        //   html: '<strong> Welcome! </strong>',
+        // };
+        // sgMail.send(msg);
 
         callback(null, user);
       })

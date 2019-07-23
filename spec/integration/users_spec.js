@@ -137,8 +137,7 @@ describe("routes : users", () => {
         },
         (err, res, body) => {
           console.log(res)
-          expect(res.statusCode).toBe(406);
-          expect(res.statusMessage).toContain('Not Acceptable');
+          expect(res.statusCode).toBe(302);
         }
       );
     });
