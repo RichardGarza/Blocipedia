@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+
+  <% include ../static/partials/navbar.ejs %>
+  
+  <body>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+      <h1>Edit Your Wiki</h1>
+
+      <form action="/wikis/<%= wiki.id %>/update" method="post">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input value="<%= wiki.title %>" type="text" class="form-control" name="title" aria-describedby="titleHelp" placeholder="Enter Title">
+          <small class="text-muted" id="titleHelp">Title must be 5 or more characters in length.</small>
+        </div>
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea rows="4" class="form-control" name="body" placeholder="Enter Wiki Body"><%= wiki.body %></textarea>
+          <small class="text-muted" id="titleHelp">Body must be 10 or more characters in length.</small>
+        </div>
+
+        <% if((currentUser && currentUser.role === "admin") && wiki.userId === currentUser.id){ %>
+          <label for="private">Make wiki private?</label>
+          <select class="form-control" name="private">
+            <option value="false">Public</option>
+            <option value="true">Private</option>
+          </select>
+        <% } %>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

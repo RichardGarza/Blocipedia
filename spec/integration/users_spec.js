@@ -18,7 +18,20 @@ describe("routes : users", () => {
     });
   });
 
-  describe("GET /users/sign_up", () => {
+  describe("GET /users/sign_in", () => {
+    beforeEach((done) => {   
+      request.get({
+        url: "http://localhost:3000/auth/fake",
+        form: {
+          id: 0 
+        }
+      },
+        (err, res, body) => {
+          done();
+        }
+      );
+
+    });
 
     it("should render a view with a sign in form", done => {
 
@@ -86,9 +99,11 @@ describe("routes : users", () => {
       request.post(
         {
           url: `${base}sign_up`,
-          form: { username: "handsomeman",
+          form: { 
+            username: "handsomeman",
             email: "handsomeMan",
-            password: "123456789"
+            password: "123456789",
+            role: "member"
           }
         },
         (err, res, body) => {
