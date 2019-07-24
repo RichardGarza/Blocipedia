@@ -29,7 +29,16 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        unique: true,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [8,20], 
+            msg: "must be a valid password with 8-20 characters"
+          } 
+        }
+      },
+      role: {
+        type: Sequelize.STRING,
         allowNull: false
       },
       createdAt: {
