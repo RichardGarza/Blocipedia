@@ -89,7 +89,7 @@ describe('User', () => {
         email: 'dSizzy@gmail.com', 
         password: '12345678', 
         username: 'derekSheep',
-        role: "member" 
+        role: 0 
       };
 
       userQueries.createUser(newUser, (err, user) => {
@@ -111,9 +111,9 @@ describe('User', () => {
     });
   });     
   
-  describe('Sign In && Sign out', () => {
+  describe('User role', () => {
 
-    it('Should allow a user with valid credentials to sign in', (done) => {
+    it('Should default to 0 when not provided.', (done) => {
       User.create({
         email: 'whatever@totally.com',
         password: '123456789',
@@ -123,13 +123,13 @@ describe('User', () => {
         expect(user.email).toBe('whatever@totally.com');
         expect(user.username).toBe('cooldude420');
         expect(user.id).toBe(1);
+        expect(user.role).toBe(0);
         done();
       })
       .catch((err) => {
         done();
       });
     });
-    
   }); 
 });
 

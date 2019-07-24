@@ -8,7 +8,7 @@ let users = [
     password: "123456789",
     createdAt: new Date(),
     updatedAt: new Date(),
-    role: "member"
+    role: 0
   },
   {
     username: "terribleuser",
@@ -16,7 +16,7 @@ let users = [
     password: "123456789",
     createdAt: new Date(),
     updatedAt: new Date(),
-    role: "member"
+    role: 2
   },
   {
     username: "randomransom",
@@ -24,18 +24,42 @@ let users = [
     password: "123456789",
     createdAt: new Date(),
     updatedAt: new Date(),
-    role: "member"
+    role: 1
   }
 ];
 
 let wikis = [
   {
+    title: "Private Wiki",
+    body: faker.hacker.phrase(),
+    private: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 1
+  },
+  {
+    title: faker.hacker.noun(),
+    body: faker.hacker.phrase(),
+    private: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 3
+  },
+  {
     title: faker.hacker.noun(),
     body: faker.hacker.phrase(),
     private: false,
     createdAt: new Date(),
     updatedAt: new Date(),
     userId: 1
+  },
+  {
+    title: "Saving Private Wiki",
+    body: faker.hacker.phrase(),
+    private: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 2
   },
   {
     title: faker.hacker.noun(),
@@ -51,7 +75,39 @@ let wikis = [
     private: false,
     createdAt: new Date(),
     updatedAt: new Date(),
-    userId: 1
+    userId: 2
+  },
+  {
+    title: faker.hacker.noun(),
+    body: faker.hacker.phrase(),
+    private: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 2
+  },
+  {
+    title: faker.hacker.noun(),
+    body: faker.hacker.phrase(),
+    private: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 2
+  },
+  {
+    title: faker.hacker.noun(),
+    body: faker.hacker.phrase(),
+    private: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 2
+  },
+  {
+    title: faker.hacker.noun(),
+    body: faker.hacker.phrase(),
+    private: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    userId: 3
   },
   {
     title: faker.hacker.noun(),
@@ -67,15 +123,7 @@ let wikis = [
     private: false,
     createdAt: new Date(),
     updatedAt: new Date(),
-    userId: 1
-  },
-  {
-    title: faker.hacker.noun(),
-    body: faker.hacker.phrase(),
-    private: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    userId: 1
+    userId: 2
   },
  
 ];

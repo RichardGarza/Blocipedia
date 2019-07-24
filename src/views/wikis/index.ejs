@@ -22,7 +22,7 @@
       <ul class="list-group">
 
         <% wikis.forEach((wiki) => { %>
-          <% if(wiki.private === false){ %>
+          <% if(wiki.private === false || currentUser.role === 2 || currentUser.role === 1){ %>
             <li class="list-group-item">
               <a href="/wikis/<%= wiki.id %>"> <%= wiki.title %> </a>
             </li>

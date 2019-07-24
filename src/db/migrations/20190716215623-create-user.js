@@ -32,8 +32,8 @@ module.exports = {
         allowNull: false
       },
       role: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.INTEGER, 
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,

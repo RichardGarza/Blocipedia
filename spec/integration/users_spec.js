@@ -53,7 +53,7 @@ describe("routes : users", () => {
           username: "manhands",
           email: "handy@manny.com",
           password: "123456789",
-          role: "member"
+          role: 0
         }
       };
 
@@ -73,6 +73,31 @@ describe("routes : users", () => {
       });
     });
 
+    it("should create a new user with role 0 if not specified.", done => {
+
+      const options = {
+        url: `${base}sign_up`,
+        form: {
+          username: "manhands",
+          email: "handy@manny.com",
+          password: "123456789"
+        }
+      };
+
+      request.post(options, (err, res, body) => {
+
+        User.findOne({ where: { username: "manhands" } })
+        .then(user => {
+          expect(user.role).toBe(0);
+          done();
+        })
+        .catch(err => {
+          console.log(err);
+          done();
+        });
+      });
+    });
+
     it("should not create a new user with invalid username ", done => {
       request.post(
         { url: `${base}sign_up`,
@@ -80,7 +105,7 @@ describe("routes : users", () => {
             username: "Deb",
             email: "handsome@man.com",
             password: "123456789",
-            role: "member"
+            role: 0
           }
         },
         (err, res, body) => {
@@ -105,7 +130,7 @@ describe("routes : users", () => {
             username: "handsomeman",
             email: "handsomeMan",
             password: "123456789",
-            role: "member"
+            role: 0
           }
         },
         (err, res, body) => {
@@ -129,7 +154,7 @@ describe("routes : users", () => {
           form: { username: "handsomeman",
             email: "handsome@man.com",
             password: "123456789",
-            role: "member"
+            role: 0
           }
         },
         (err, res, body) => {
@@ -151,7 +176,7 @@ describe("routes : users", () => {
           form: { username: "handsomeman",
             email: "handsome@man.com",
             password: "123456789",
-            role: "member"
+            role: 0
           }
         },
         (err, res, body) => {
@@ -168,7 +193,7 @@ describe("routes : users", () => {
             username: "handsomeman",
             email: "handsome@man.com",
             password: "12354",
-            role: "member"
+            role: 0
           }
         },
         (err, res, body) => {
@@ -192,7 +217,7 @@ describe("routes : users", () => {
           username: "manhands",
           email: "man@sandwich.com",
           password: "123456789",
-          role: "member"
+          role: 0
         }
       };
 

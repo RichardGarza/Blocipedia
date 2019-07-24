@@ -12,7 +12,7 @@ describe("Wiki", () => {
         username: "dangerzone",
         email: "starman@tesla.com",
         password: "Trekkie4lyfe",
-        role: "member"
+        role: 0
       }).then(user => {
         this.user = user; //store the user
         Wiki.create({
@@ -164,39 +164,6 @@ describe("Wiki", () => {
         console.log(err);
         done();
       });
-    });
-
-    it("should only update a wiki with provided values", done => {
-      Wiki.create({
-        title: "My Special Wiki",
-        body: "This wiki is special because it's mine and i love it.",
-        userId: 1
-      })
-      .then(newWiki => {
-        expect(newWiki.title).toBe("My Special Wiki");
-        expect(newWiki.body).toBe("This wiki is special because it's mine and i love it.");
-
-        const updatedWiki = {
-          body: "Tolito vehicles used to run off water and coal!",
-          userId: 1
-        }
-        
-        newWiki.update(updatedWiki, { fields: Object.keys(updatedWiki) })
-        .then((wiki) => {
-          expect(wiki.title).toBe("My Special Wiki");
-          expect(wiki.body).toBe("Tolito vehicles used to run off water and coal!");
-        })
-        .catch(err => {
-          expect(err).toBeNull();
-          console.log(err);
-        });
-        done();
-      })
-      .catch(err => {
-        expect(err).toBeNull();
-        console.log(err);
-      });
-      done();
     });
   });
 

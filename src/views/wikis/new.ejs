@@ -29,7 +29,7 @@
               <small class="text-muted" id="titleHelp">Body must be 10 or more characters.</small>
             </div>
 
-          <% if(currentUser && currentUser.role !== "member"){ %>
+          <% if(currentUser && currentUser.role !== 0){ %>
             <div class="form-group">
               <label for="private">Make this wiki private?</label>
               <select class = "form-control" name="private">
