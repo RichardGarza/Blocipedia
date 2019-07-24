@@ -52,7 +52,8 @@ describe("routes : users", () => {
         form: {
           username: "manhands",
           email: "handy@manny.com",
-          password: "123456789"
+          password: "123456789",
+          role: "member"
         }
       };
 
@@ -78,7 +79,8 @@ describe("routes : users", () => {
           form: {
             username: "Deb",
             email: "handsome@man.com",
-            password: "123456789"
+            password: "123456789",
+            role: "member"
           }
         },
         (err, res, body) => {
@@ -126,7 +128,8 @@ describe("routes : users", () => {
           url: `${base}sign_up`,
           form: { username: "handsomeman",
             email: "handsome@man.com",
-            password: "123456789"
+            password: "123456789",
+            role: "member"
           }
         },
         (err, res, body) => {
@@ -147,12 +150,13 @@ describe("routes : users", () => {
           url: `${base}sign_up`,
           form: { username: "handsomeman",
             email: "handsome@man.com",
-            password: "123456789"
+            password: "123456789",
+            role: "member"
           }
         },
         (err, res, body) => {
-          console.log(res)
           expect(res.statusCode).toBe(302);
+          expect(res.body).toContain('Found. Redirecting to /users/sign_up');
         }
       );
     });
@@ -163,7 +167,8 @@ describe("routes : users", () => {
           form: {
             username: "handsomeman",
             email: "handsome@man.com",
-            password: "12354"
+            password: "12354",
+            role: "member"
           }
         },
         (err, res, body) => {
@@ -186,7 +191,8 @@ describe("routes : users", () => {
         form: {
           username: "manhands",
           email: "man@sandwich.com",
-          password: "123456789"
+          password: "123456789",
+          role: "member"
         }
       };
 

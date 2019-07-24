@@ -19,7 +19,8 @@ module.exports = {
       return User.create({
         email: newUser.email,
         password: hashedPassword,
-        username: newUser.username
+        username: newUser.username,
+        role: newUser.role
       })
       .then((user) => {
 

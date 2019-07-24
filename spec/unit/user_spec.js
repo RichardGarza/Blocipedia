@@ -88,7 +88,8 @@ describe('User', () => {
       let newUser = {
         email: 'dSizzy@gmail.com', 
         password: '12345678', 
-        username: 'derekSheep' 
+        username: 'derekSheep',
+        role: "member" 
       };
 
       userQueries.createUser(newUser, (err, user) => {
