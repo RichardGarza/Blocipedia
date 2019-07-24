@@ -7,9 +7,7 @@ const passport = require("passport");
 module.exports = {
  
   createUser(newUser, callback){
-    if(newUser.email === "admin@secretsaucyness.com"){ newUser.role = 2}
-    if(newUser.email === "premium@secretsaucyness.com"){ newUser.role = 1}
-    
+
     if( newUser.password.length < 8 || newUser.password.length > 20 ){
       
       callback( { message: 'Must be a valid password with 8-20 characters' } );
