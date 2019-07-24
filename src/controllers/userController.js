@@ -26,7 +26,7 @@ module.exports = {
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
-    role: req.body.role
+    role: req.body.role || 'member'
     };
       // Call createUser with newUser object.
     userQueries.createUser(newUser, (err, user) => {

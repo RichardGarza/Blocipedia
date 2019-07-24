@@ -2,6 +2,22 @@ const Wiki = require("../models").Wiki;
 const Authorizer = require("../../policies/application");
 
 module.exports = {
+
+  addWiki(newWiki, callback) {
+    return Wiki.create({
+      title: newWiki.title,
+      body: newWiki.body,
+      private: newWiki.private,
+      userId: newWiki.userId
+    })
+      .then(wiki => {
+        callback(null, wiki);
+      })
+      .catch(err => {
+        callback(err);
+      });
+  },
+  
   getAllWikis(callback) {
     return Wiki.findAll()
       .then(wikis => {
@@ -25,19 +41,19 @@ module.exports = {
       })
   },
 
-  addWiki(newWiki, callback) {
-    return Wiki.create({
-      title: newWiki.title,
-      body: newWiki.body,
-      private: newWiki.private,
-      userId: newWiki.userId
+  editWiki(req, callback) {
+    
+    Wiki.findByPk(req.params.id)
+    .then((wiki) => {
+      const authorized = new Authorizer(req.user, wiki).edit();
+      
+      if(authorized){
+        callback(null, wiki)
+      } else {
+        req.flash("notice", "You are not authorised to do that.");
+        callback(404)
+      }
     })
-      .then(wiki => {
-        callback(null, wiki);
-      })
-      .catch(err => {
-        callback(err);
-      });
   },
 
   updateWiki(req, updatedWiki, callback) {
