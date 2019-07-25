@@ -19,6 +19,10 @@ module.exports = {
     userQueries.signIn(req, res, next);
   },
 
+  upgrade(req,res,next){
+    userQueries.upgrade(req, res, next);
+  },
+
   create(req, res, next){
 
       // Make newUser object from request body.
@@ -28,7 +32,7 @@ module.exports = {
     password: req.body.password,
     role: req.body.role 
     };
-    
+
       // Call createUser with newUser object.
     userQueries.createUser(newUser, (err, user) => {
 
