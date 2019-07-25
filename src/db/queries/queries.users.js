@@ -43,6 +43,23 @@ module.exports = {
     }
   }, // End createUser()
 
+  upgrade(req, res, next) {
+    User.findOne({ where: { id : req.params.id } } )
+    .then((user) => {
+      updatedUser = {
+        email: user.email,
+        password: user.password,
+        username: user.username,
+        role: 1
+      }
+      user.update(updatedUser, { fields: Object.keys(updatedUser) })
+      .then( () => {
+        req.flash("notice", "You've successfully upgraded to a Premium Account!");
+        res.redirect("/");
+      })
+    })
+  }, // End upgrade()
+
 
   signIn(req, res, next){
 
