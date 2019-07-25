@@ -43,7 +43,7 @@ module.exports = {
       } else {        
         passport.authenticate("local" )(req, res, () => {
 
-          req.flash("notice", `You've successfully signed up as ${req.user.role}, and you're signed in!`);
+          req.flash("notice", `You've successfully signed up as ${req.user.username}, and you're signed in!`);
           res.redirect("/");
         });
       }
