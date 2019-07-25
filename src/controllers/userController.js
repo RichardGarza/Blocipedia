@@ -23,6 +23,10 @@ module.exports = {
     userQueries.upgrade(req, res, next);
   },
 
+  downgrade(req,res,next){
+    userQueries.downgrade(req, res, next);
+  },
+
   create(req, res, next){
 
       // Make newUser object from request body.

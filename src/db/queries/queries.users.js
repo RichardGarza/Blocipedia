@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require('../models').User;
+const Wiki = require('../models').Wiki;
 const salt = bcrypt.genSaltSync();
 const passport = require("passport");
 
@@ -59,6 +60,37 @@ module.exports = {
       })
     })
   }, // End upgrade()
+
+  downgrade(req, res, next) {
+    User.findOne({ where: { id : req.params.id } } )
+    .then((user) => {
+      updatedUser = {
+        email: user.email,
+        password: user.password,
+        username: user.username,
+        role: 0
+      }
+      user.update(updatedUser, { fields: Object.keys(updatedUser) })
+      .then( (user) => {
+        Wiki.findAll({ where: { userId : user.id, private: true }})
+        .then((wikis) => {
+         if(wikis){
+            wikis.forEach((wiki) => { 
+              updatedWiki = { title: wiki.title, body: wiki.body, userId: wiki.userId, private: false } 
+              wiki.update(updatedWiki, { fields: Object.keys(updatedWiki) });
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+
+        req.flash("notice", "You've successfully downgraded to a Standard Account!");
+        res.redirect("/");
+      })
+    })
+  }, // End downgrade()
 
 
   signIn(req, res, next){

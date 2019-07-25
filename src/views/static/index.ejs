@@ -34,6 +34,16 @@
           <% if(currentUser && currentUser.role === 1) { %>
             <p class="lead">Welcome, Premium User!</p>
             <p class="lead">Enjoy Creating & Reading Private/Public Wikis!</p>
+            <br>
+            <br>
+            <p class="lead">If you choose to downgrade, all your private wikis will become public.</p>
+
+
+            <form style="display:initial" action="/users/<%=currentUser.id%>/downgrade" method="post">
+              <button type="submit" class="btn btn-danger">Downgrade</button>
+            </form>
+
+
           <% } else if(currentUser && currentUser.role === 2){ %>
             <p class="lead">Welcome, Admin User!</p>
             <p class="lead">Enjoy Creating, Reading, and Editing Wikis!</p>
