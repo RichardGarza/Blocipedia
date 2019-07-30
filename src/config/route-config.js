@@ -3,6 +3,7 @@ module.exports = {
     const staticRoutes = require("../routes/static");
     const userRoutes = require("../routes/user");
     const wikiRoutes = require("../routes/wikis");
+    const collabRoutes = require("../routes/collabs");
 
     // In testing environment, use fake authorization
     if(process.env.NODE_ENV === "test") {
@@ -13,6 +14,7 @@ module.exports = {
     app.use(staticRoutes);
     app.use(userRoutes);
     app.use(wikiRoutes);
+    app.use(collabRoutes);
 
   }
 }

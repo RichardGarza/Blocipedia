@@ -4,7 +4,7 @@ const markdown = require("markdown").markdown;
 
 module.exports = {
   index(req, res, next) {
-    wikiQueries.getAllWikis((err, wikis) => {
+    wikiQueries.getAllWikis(req.user, (err, wikis) => {
       if (err) {
         res.redirect("/");
       } else {
@@ -56,6 +56,7 @@ module.exports = {
     wikiQueries.getWiki(req.params.id, (err, result) => {
 
       wiki = result["wiki"];
+      collaborators = result["collaborators"];
       
       if(err || wiki == null){
         res.redirect(404, "/");
@@ -65,7 +66,7 @@ module.exports = {
         
         if(authorized){
           wiki.body = markdown.toHTML(wiki.body);
-          res.render("wikis/show", {wiki});
+          res.render("wikis/show", {wiki, collaborators});
         } else {
           req.flash("notice", "You must be logged in to do that.")
           res.redirect('/wikis')

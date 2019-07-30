@@ -1,8 +1,9 @@
 module.exports = class ApplicationPolicy {
 
-  constructor(user, record ) {
+  constructor( user, record, collaborator ) {
     this.user = user;
     this.record = record;
+    this.collaborator = collaborator;
   }
 
   _isOwner() {
@@ -19,7 +20,7 @@ module.exports = class ApplicationPolicy {
   _isPremiumMember() {
     return this.user && this.user.role == 1;
   }
-
+  
   new() {
     return this.user != null;
   }
@@ -30,6 +31,10 @@ module.exports = class ApplicationPolicy {
 
   show() {
     return true;
+  }
+
+  viewCollab() {
+    return this.show();
   }
 
   edit() {

@@ -15,6 +15,12 @@
 
         <h1> <%= wiki.title %> </h1>
 
+        <% if(wiki.private === true && currentUser && (currentUser.role === 1 || currentUser.role === 2)) { %>
+          <a href="/wikis/<%= wiki.id %>/collaborators" class="btn btn-info">Collaborators</a>
+        <% } %>
+
+        
+
         <% if(currentUser) { %>
           <a href="/wikis/<%= wiki.id %>/edit" class="btn btn-warning">Edit</a>
           <form style="display:initial" action="/wikis/<%= wiki.id %>/destroy" method="post">

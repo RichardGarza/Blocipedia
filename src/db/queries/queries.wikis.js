@@ -1,4 +1,5 @@
 const Wiki = require("../models").Wiki;
+const Collaborator = require("../models").Collaborator;
 const Authorizer = require("../../policies/application");
 
 module.exports = {
@@ -18,27 +19,51 @@ module.exports = {
       });
   },
   
-  getAllWikis(callback) {
+  getAllWikis(user, callback) {
+    let filteredWikis = [];
     return Wiki.findAll()
-      .then(wikis => {
+      .then((wikis) => {
+        Collaborator.findAll({ where: { userId: user.id }})
+        .then((collabs) => {
+
+          collabs.forEach((collab) => { 
+            Wiki.findByPk(collab.wikiId)
+            .then((collabWiki) => { 
+              console.log('WIKISTIKIS')
+              wikis.forEach((wiki) => {
+                console.log('WIKi', wiki.id, collabWiki.id)
+                if (wiki.id === collabWiki.id) { 
+                  console.log('EQUAL')
+                  wiki.private = false; };
+                filteredWikis.push(wiki);
+              }); 
+          })
+          .catch( (err) => { callback(err); });})
+        });
+        console.log('WORKING', filteredWikis)
+        wikis = filteredWikis;
         callback(null, wikis);
       })
-      .catch(err => {
-        callback(err);
-      });
+      .catch(err => { callback(err); });
   },
 
   getWiki(id, callback) {
     var result = {};
-      	return Wiki.findByPk(id)
-      	.then((wiki) => {
-          if(!wiki) {
-           	callback(404);
-       	  } else {
+      return Wiki.findByPk(id)
+      .then((wiki) => {
+          if(!wiki) { callback(404); }
+          else {
             result["wiki"] = wiki;
+            Collaborator.scope({method: ["collaboratorsForWiki", id]}).findAll()
+            .then((collaborators) => {
+            result["collaborators"] = collaborators;
             callback(null, result);
-          } 
-      })
+        })
+        .catch((err) => {
+          callback(err);
+        })
+      }
+    })
   },
 
   editWiki(req, callback) {
