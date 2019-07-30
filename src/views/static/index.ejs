@@ -44,14 +44,14 @@
             </form>
 
 
-          <% } else if(currentUser && currentUser.role === 2){ %>
+          <% } else if( (currentUser && currentUser.role === 2) || (user && user.role === 2) ){ %>
             <p class="lead">Welcome, Admin User!</p>
             <p class="lead">Enjoy Creating, Reading, and Editing Wikis!</p>
           <% } else { %>
             <p class="lead">An application for users to share wikis.</p>
           <% }%>
 
-          <% if( currentUser && currentUser.role === 0 ) { %>
+          <% if( (currentUser && currentUser.role === 0) || (user && user.role === 0) ) { %>
             <p class="lead">Upgrade to a Premium Account to create private Wikis.</p>
             <p class="lead">Plans start as low as $10,000/month!</p>
             <form action="/users/<%=currentUser.id%>/upgrade" method="POST">
