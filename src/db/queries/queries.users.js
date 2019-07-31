@@ -29,9 +29,9 @@ module.exports = {
         // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
         // const msg = {
         //   to: user.email,
-        //   from: 'fakeAdminEmail@blocipedia.com',
+        //   from: 'fakeAdminEmail@richipedia.com',
         //   subject: `${user.username}, you're signed up!`,
-        //   text: "You've successfully signed up to Blocipedia.",
+        //   text: "You've successfully signed up to Richipedia.",
         //   html: '<strong> Welcome! </strong>',
         // };
         // sgMail.send(msg);

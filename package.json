@@ -1,5 +1,5 @@
 {
-  "name": "Blocipedia",
+  "name": "Richipedia",
   "version": "1.0.0",
   "description": "A Wikipedia Clone where users can create Wikis.",
   "main": "src/server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RichardGarza/Blocipedia"
+    "url": "git+https://github.com/RichardGarza/Richipedia"
   },
   "author": "Richard Garza",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RichardGarza/Blocipedia/issues"
+    "url": "https://github.com/RichardGarza/Richipedia/issues"
   },
-  "homepage": "https://github.com/RichardGarza/Blocipedia#readme",
+  "homepage": "https://github.com/RichardGarza/Richipedia#readme",
   "dependencies": {
     "@sendgrid/mail": "^6.4.0",
     "bcryptjs": "^2.4.3",

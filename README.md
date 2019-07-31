@@ -1,4 +1,4 @@
-Welcome to Blocipedia. 
+Welcome to Richipedia. 
 
 This is a clone of the popular site, Wikipedia.
 

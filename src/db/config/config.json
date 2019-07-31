@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": null,
-    "database": "blocipedia_development",
+    "database": "richipedia_development",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false
@@ -10,7 +10,7 @@
   "test": {
     "username": "postgres",
     "password": null,
-    "database": "blocipedia_test",
+    "database": "richipedia_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "operatorsAliases": false,
