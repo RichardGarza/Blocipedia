@@ -20,44 +20,49 @@ module.exports = {
   },
   
   getAllWikis(user, callback) {
-    let filteredWikis = [];
+    var result = {};
     return Wiki.findAll()
       .then((wikis) => {
-        Collaborator.findAll({ where: { userId: user.id }})
-        .then((collabs) => {
-
-          collabs.forEach((collab) => { 
-            Wiki.findByPk(collab.wikiId)
-            .then((collabWiki) => { 
-              console.log('WIKISTIKIS')
-              wikis.forEach((wiki) => {
-                console.log('WIKi', wiki.id, collabWiki.id)
-                if (wiki.id === collabWiki.id) { 
-                  console.log('EQUAL')
-                  wiki.private = false; };
-                filteredWikis.push(wiki);
-              }); 
-          })
-          .catch( (err) => { callback(err); });})
-        });
-        console.log('WORKING', filteredWikis)
-        wikis = filteredWikis;
-        callback(null, wikis);
+        if(!wikis) { 
+          callback(404); 
+        } else {
+          result["wikis"] = wikis;
+          if(!user){ 
+            callback(null, result);
+          } else {
+            Collaborator.scope({method: ["collaboratorsForUser", user.id]}).findAll()
+            .then((collaborators) => {
+              if(collaborators){
+                result["collaborators"] = collaborators;
+                callback(null, result);
+              }
+            })
+            .catch((err) => { callback(err); })
+          }
+        }
+        
       })
       .catch(err => { callback(err); });
   },
 
-  getWiki(id, callback) {
+  getWiki(req, callback) {
     var result = {};
-      return Wiki.findByPk(id)
-      .then((wiki) => {
-          if(!wiki) { callback(404); }
-          else {
-            result["wiki"] = wiki;
-            Collaborator.scope({method: ["collaboratorsForWiki", id]}).findAll()
-            .then((collaborators) => {
+    return Wiki.findByPk(req.params.id || req.params.wikiId)
+    .then((wiki) => {
+      if(!wiki) { callback(404); }
+      else {
+        result["wiki"] = wiki;
+        Collaborator.scope({method: ["collaboratorsForWiki", wiki.id]}).findAll()
+        .then((collaborators) => {
+          if(collaborators){
+            collaborators.forEach((collaborator) => {
+              if(collaborator.userId === req.user.id){
+                wiki.ownerId = req.user.id
+              }
+            })
             result["collaborators"] = collaborators;
             callback(null, result);
+          }
         })
         .catch((err) => {
           callback(err);
@@ -70,37 +75,62 @@ module.exports = {
     
     Wiki.findByPk(req.params.id)
     .then((wiki) => {
-      const authorized = new Authorizer(req.user, wiki).edit();
-      
-      if(authorized){
-        callback(null, wiki)
-      } else {
-        req.flash("notice", "You are not authorised to do that.");
-        callback(404)
-      }
+      let authorized; 
+
+      Collaborator.findOne({
+        where: {
+          wikiId: wiki.id,
+          userId: req.user.id
+        }
+      })
+      .then((collaborator) => {
+        if(collaborator){
+            authorized = true;
+        } else {
+            authorized = new Authorizer(req.user, wiki).edit();
+        }
+        if(authorized){
+          callback(null, wiki)
+        } else {
+          req.flash("notice", "You are not authorised to do that.");
+          callback(404)
+        }
+      })
     })
   },
 
   updateWiki(req, updatedWiki, callback) {
-    return Wiki.findByPk(req.params.id).then(wiki => {
+    return Wiki.findByPk(req.params.id)
+    .then((wiki) => {
       if (!wiki) {
         return callback("Wiki not found");
       }
-
-      const authorized = new Authorizer(req.user, wiki).update();
-
-      if (authorized) {
-        wiki.update(updatedWiki, { fields: Object.keys(updatedWiki) })
-        .then(() => {
-          callback(null, wiki);
-        })
-        .catch(err => {
-          callback(err);
-        });
-      } else {
-        req.flash("notice", "You are not authorized to do that.");
-        callback("Forbidden");
-      }
+      let authorized; 
+      Collaborator.findOne({
+        where: {
+          wikiId: wiki.id,
+          userId: req.user.id
+        }
+      })
+      .then((collaborator) => {
+        if(collaborator){
+          authorized = true;
+        } else {
+          authorized = new Authorizer(req.user, wiki).update();
+        }
+        if (authorized) {
+          wiki.update(updatedWiki, { fields: Object.keys(updatedWiki) })
+          .then(() => {
+            callback(null, wiki);
+          })
+          .catch(err => {
+            callback(err);
+          });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          callback("Forbidden");
+        }
+      })
     });
   },
 
