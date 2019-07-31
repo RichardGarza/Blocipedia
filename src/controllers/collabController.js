@@ -11,7 +11,7 @@ module.exports = {
 				if(err){
 					req.flash("notice", err);
 				}
-				res.redirect(req.headers.referer);
+				res.redirect(`/wikis/${req.params.wikiId}`);
 			});
 	},
 
@@ -44,11 +44,11 @@ module.exports = {
 				if(err){
 					req.flash("notice", err);
 				}
-				res.redirect(req.headers.referer);
+				res.redirect(`/wikis/${req.params.wikiId}`);
 			});
 		} else {
 			req.flash("notice", "You must be signed in to remove Collaborators!");
-			res.redirect(req.headers.referer);
+			res.redirect(`/wikis/${req.params.wikiId}/collaborators`);
 		}
 	} 
 }

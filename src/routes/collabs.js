@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../db/models").User;
 const collabController = require("../controllers/collabController");
 
 router.get("/wikis/:wikiId/collaborators", collabController.view);
